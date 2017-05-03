@@ -21,7 +21,7 @@ $ chmod +x -R kcpsh
 $ cd kcpsh
 ```
 
-#### Setup server config
+### Setup Server
 ```json
 {
     "listen": ":2333",
@@ -50,6 +50,8 @@ Replace `$port` & `$password` as you want to.
 - `listen`: kcptun listen port
 - `target`: the shadowsocks address. Becasue kcptun & shadowsocks are on the same VPS. So the address is `0.0.0.0` doesn't need be changed. Unless you have mulitple IP address.
 - `key`: make sure client & server have the same password
+- `crypt`: make sure client & server have the same crpyt method.
+- `mode`: make sure client & server have the same mode.
 
 > `sndwnd` & `rcvwnd` should not over the your mainum bandwidth.  
 >  How to reach the maximum bandwidth?  
@@ -57,19 +59,63 @@ Replace `$port` & `$password` as you want to.
 
 Other parameter please check [here](https://github.com/xtaci/kcptun).
 
-### start server
+#### start server
 ```bash
-$ ./start.sh
+$ ./server-start.sh
 ```
 
-### stop server
+#### stop server
 ```bash
-$ ./stop.sh
+$ ./server-stop.sh
 ```
 
-### restart server
+#### restart server
 ```bash
-$ ./restart.sh
+$ ./server-restart.sh
+```
+
+### Setup client (only for macOS)
+This script only for macOS. Other system should change the script to adjust it.
+
+```json
+{
+    "localaddr": "127.0.0.1:1989",
+    "remoteaddr": "$kcptun_server_address",
+    "key": "$password",
+    "crypt": "aes-192",
+    "mode": "fast2",
+    "conn": 1,
+    "autoexpire": 60,
+    "mtu": 1350,
+    "sndwnd": 1024,
+    "rcvwnd": 1024,
+    "dscp": 46,
+    "nocomp": false
+}
+```
+- `localaddr`: The local address `kcptun` will listen for.
+- `remoteaddr`: The kcptun server address. Must include the kcptun server port. Like: xxx.xxx.xxx.xxx:2333.
+- `key`: make sure client & server have the same password.
+- `crypt`: make sure client & server have the same crpyt method.
+- `mode`: make sure client & server have the same mode.
+
+> `sndwnd` & `rcvwnd` should not over the your mainum bandwidth.  
+>  How to reach the maximum bandwidth?  
+> Increase -rcvwnd on KCP Client and -sndwnd on KCP Server simultaneously & gradually, the mininum one decides the maximum transfer rate of the link, as wnd * mtu / rtt; Then try downloading something and to see if it meets your requirements. (mtu is adjustable by -mtu)
+
+#### start client
+```bash
+$ ./client-start.sh
+```
+
+#### stop client
+```bash
+$ ./client-stop.sh
+```
+
+#### restart client
+```bash
+$ ./client-restart.sh
 ```
 
 ## References
