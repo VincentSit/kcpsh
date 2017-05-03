@@ -1,0 +1,14 @@
+{
+    "localaddr": "127.0.0.1:1989",
+    "remoteaddr": "$kcptun-server-address",
+    "key": "$password",
+    "crypt": "aes-192",
+    "mode": "fast2",
+    "conn": 1,
+    "autoexpire": 60,
+    "mtu": 1350,
+    "sndwnd": 2048,
+    "rcvwnd": 2048,
+    "dscp": 46,
+    "nocomp": true
+}
