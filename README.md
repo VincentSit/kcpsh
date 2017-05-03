@@ -42,10 +42,11 @@ $ cd kcpsh
     "resend": 0,
     "nc": 0,
     "sockbuf": 4194304,
-    "keepalive": 10
+    "keepalive": 10,
+    "log": "$log_path"
 }
 ```
-Replace `$port` & `$password` as you want to. 
+Replace `$port` & `$password` & `$log_path` as you want to. 
 
 - `listen`: kcptun listen port
 - `target`: the shadowsocks address. Becasue kcptun & shadowsocks are on the same VPS. So the address is `0.0.0.0` doesn't need be changed. Unless you have mulitple IP address.
@@ -90,9 +91,12 @@ This script only for macOS. Other system should change the script to adjust it.
     "sndwnd": 1024,
     "rcvwnd": 1024,
     "dscp": 46,
-    "nocomp": false
+    "nocomp": false,
+    "log": "$log_path"
 }
 ```
+Replace `$kcptun_server_address` & `$password` & `$log_path` as you want to. 
+
 - `localaddr`: The local address `kcptun` will listen for.
 - `remoteaddr`: The kcptun server address. Must include the kcptun server port. Like: xxx.xxx.xxx.xxx:2333.
 - `key`: make sure client & server have the same password.
